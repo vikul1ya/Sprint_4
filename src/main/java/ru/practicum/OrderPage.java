@@ -30,12 +30,15 @@ public class OrderPage {
     By rent = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div");//поле срок аренды
     By oneDays = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[1]");//1 сутки
     By twoDays = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[2]");//2 суток
-    By black = By.xpath("/html/body/div/div/div[2]/div[2]/div[3]/label[1]/input");
-    By grey = By.xpath("/html/body/div/div/div[2]/div[2]/div[3]/label[2]/input");
+    By black = By.xpath("//*[@id='black']");
+    By grey = By.xpath("//*[@id='grey']");
     By comment = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[4]/input");//поле комментарий
     By orderButton = By.xpath("//*[@id='root']/div/div[2]/div[3]/button[2]");// кнопка заказать
     By confirmOrderButton = By.xpath("//*[@id='root']/div/div[2]/div[5]/div[2]/button[2]");//кнопка подтверждения заказа
     By successMessage = By.xpath("//div[contains(text(),'Заказ оформлен')]");// локатор для всплывающего окна с подтверждением
+
+    //локатор формы заказа для Ассертов
+    By orderForm = By.xpath("//*[@id='root']/div/div[2]/div[2]");
 
     // Методы сраницы формы заказа
 
@@ -69,26 +72,30 @@ public class OrderPage {
         driver.findElement(metroField).sendKeys(metro);
         driver.findElement(By.cssSelector(".select-search__select")).click();
     }
+
     // Метод нажатия кнопки Далее
     public void searchAndClickNext() {
         driver.findElement(nextButton).click();
     }
+
     // Заполнение поля когда привезти самокат
     public void clickWhenDelivery(String date) throws InterruptedException {
         driver.findElement(whenDeliveryField).sendKeys(date);
         Thread.sleep(3000);
         driver.findElement(calendar).click();
     }
+
     //    Заполнение поля срок аренды
     public void rentalPeriodField(String period) {
         driver.findElement(rent).click();
 
-        if(period == "one") {
+        if (period == "one") {
             driver.findElement(oneDays).click();
-        } else if(period == "two") {
+        } else if (period == "two") {
             driver.findElement(twoDays).click();
         }
     }
+
     //заполнение чекбокса цвет самоката
     public void selectColorBlack() {
         driver.findElement(black).click();
@@ -97,25 +104,33 @@ public class OrderPage {
     public void selectColorGrey() {
         driver.findElement(grey).click();
     }
+
     // заполнение поля комментарий
     public void commentDelivery(String message) {
         driver.findElement(comment).sendKeys(message);
     }
+
     //кнопка заказать
     public void clickOrderButton() {
         driver.findElement(orderButton).click();
     }
+
     //подтверждение заказа
     public void confirmOrder() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.presenceOfElementLocated(confirmOrderButton)).click();
     }
 
+    //метод получения формы заказа
+    public boolean waitAndGetVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(orderForm)).isDisplayed();
+    }
 
-   public boolean isOrderSuccess() {
-       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-       return wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)).isDisplayed();
-   }
+    public boolean isOrderSuccess() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)).isDisplayed();
+    }
 
 
 }

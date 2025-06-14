@@ -27,7 +27,6 @@ public class OrderPageTest {
     private final String comment;
 
 
-
     public OrderPageTest(
             String nameField,
             String secondNameField,
@@ -86,8 +85,8 @@ public class OrderPageTest {
         orderPage.commentDelivery(comment);
         orderPage.clickOrderButton();
         orderPage.confirmOrder();
-      // Проверка успешного оформления заказа
-        Assert.assertTrue("Заказ не подтвержден", orderPage.isOrderSuccess());
+        // Проверка успешного оформления заказа
+        Assert.assertTrue("Заказ подтвержден", orderPage.isOrderSuccess());
     }
 }
 

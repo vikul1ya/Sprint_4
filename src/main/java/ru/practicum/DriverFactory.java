@@ -40,6 +40,8 @@ public class DriverFactory extends ExternalResource {
     @Override
     protected void before() throws Throwable {
         initDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
     @Override
