@@ -21,10 +21,10 @@ public class MainPage {
     }
 
     // локатор кнопки входа в приложение
-    By topButton = By.xpath("//*[@id='root']/div/div/div[1]/div[2]/button[1]");
-    By bottomButton = By.xpath("//*[@id='root']/div/div/div[4]/div[2]/div[5]/button");
+    By topButton = By.xpath(".//div[@class = 'Header_Nav__AGCXC']/button[text()='Заказать']");
+    By bottomButton = By.xpath(".//div[@class = 'Home_FinishButton__1_cWm']/button[text()='Заказать']");
     // локатор выпадающего списка
-    By Accordion = By.xpath("//*[@id='root']/div/div/div[5]/div[2]/div");
+    By Accordion = By.xpath(".//div[@class = 'accordion']");
     //локатор кнопки закрытия Куки "Да все привыкли"
     By cookiButton = By.xpath("//*[@id='rcc-confirm-button']");
 
@@ -70,10 +70,11 @@ public class MainPage {
     }
 
     //метод проверки содержания текста
-    public void textContentChecking(By element, String text) {
+    public String getAccordionText(By element) {
         new WebDriverWait(driver, Duration.ofSeconds(1))
                 .until(driver -> (driver.findElement(element).getText().length() != 0));
-        MatcherAssert.assertThat(driver.findElement(element).getText(), containsString(text));
+
+        return driver.findElement(element).getText();
     }
 
     public void clickButton(By button) {

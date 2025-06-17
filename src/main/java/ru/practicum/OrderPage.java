@@ -18,27 +18,27 @@ public class OrderPage {
 
     // локаторы страницы формы заказа
 
-    By nameField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/input");// поле Имя
-    By secondNameField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/input"); // поле фамилия
-    By adressField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[3]/input");//поле адрес
-    By metroField = By.cssSelector(".select-search__input"); // поле станция метро
-    By telephoneField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[5]/input");// локатор поля телефона
+    By nameField = By.xpath(".//input[@placeholder = '* Имя']");// поле Имя
+    By secondNameField = By.xpath(".//input[@placeholder = '* Фамилия']"); // поле фамилия
+    By adressField = By.xpath(".//input[@placeholder = '* Адрес: куда привезти заказ']");//поле адрес
+    By metroField = By.xpath(".//input[@placeholder = '* Станция метро']"); // поле станция метро
+    By telephoneField = By.xpath(".//input[@placeholder = '* Телефон: на него позвонит курьер']");// локатор поля телефона
 
-    By nextButton = By.xpath("//*[@id='root']/div/div[2]/div[3]/button"); // Кнопка далее
-    By whenDeliveryField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div/div/input");//поле когда привезти самокат
-    By calendar = By.xpath("//*[@id='root']/div/div[1]");//календарь
-    By rent = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div");//поле срок аренды
-    By oneDays = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[1]");//1 сутки
-    By twoDays = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[2]");//2 суток
+    By nextButton = By.xpath(".//button[text() = 'Далее']");// Кнопка далее
+    By whenDeliveryField = By.xpath(".//input[@placeholder = '* Когда привезти самокат']");//поле когда привезти самокат
+    By header = By.xpath(".//div[@class = 'Header_Header__214zg']");//шапка
+    By rent = By.xpath(".//div[text() = '* Срок аренды']");//поле срок аренды
+    By oneDays = By.xpath(".//div[@class = 'Dropdown-option' and text()= 'сутки']");//1 сутки
+    By twoDays = By.xpath(".//div[@class = 'Dropdown-option' and text()= 'двое суток']");//2 суток
     By black = By.xpath("//*[@id='black']");
     By grey = By.xpath("//*[@id='grey']");
-    By comment = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[4]/input");//поле комментарий
-    By orderButton = By.xpath("//*[@id='root']/div/div[2]/div[3]/button[2]");// кнопка заказать
-    By confirmOrderButton = By.xpath("//*[@id='root']/div/div[2]/div[5]/div[2]/button[2]");//кнопка подтверждения заказа
+    By comment = By.xpath(".//input[@placeholder = 'Комментарий для курьера']");//поле комментарий
+    By orderButton = By.xpath(".//div[@class = 'Order_Buttons__1xGrp']/button[text()='Заказать']");// кнопка заказать
+    By confirmOrderButton = By.xpath(".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM' and text()= 'Да']");//кнопка подтверждения заказа "Да"
     By successMessage = By.xpath("//div[contains(text(),'Заказ оформлен')]");// локатор для всплывающего окна с подтверждением
 
     //локатор формы заказа для Ассертов
-    By orderForm = By.xpath("//*[@id='root']/div/div[2]/div[2]");
+    By orderForm = By.xpath(".//div[@class ='Order_Content__bmtHS']");
 
     // Методы сраницы формы заказа
 
@@ -74,19 +74,18 @@ public class OrderPage {
     }
 
     // Метод нажатия кнопки Далее
-    public void searchAndClickNext() {
+    public void searchAndClickNext(){
         driver.findElement(nextButton).click();
     }
 
     // Заполнение поля когда привезти самокат
-    public void clickWhenDelivery(String date) throws InterruptedException {
+    public void clickWhenDelivery(String date){
         driver.findElement(whenDeliveryField).sendKeys(date);
-        Thread.sleep(3000);
-        driver.findElement(calendar).click();
+        driver.findElement(header).click();
     }
 
     //    Заполнение поля срок аренды
-    public void rentalPeriodField(String period) {
+    public void rentalPeriodField(String period){
         driver.findElement(rent).click();
 
         if (period == "one") {

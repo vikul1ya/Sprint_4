@@ -18,7 +18,7 @@ public class MainPageButtonTest {
     @Rule
     public DriverFactory driverFactory = new DriverFactory();
 
-    private static WebDriver driver;
+
     private final String type;
 
 

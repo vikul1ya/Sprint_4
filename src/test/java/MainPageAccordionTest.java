@@ -1,4 +1,5 @@
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,6 @@ import ru.practicum.DriverFactory;
 import ru.practicum.MainPage;
 
 
-// новый код с параметризацией
 @RunWith(Parameterized.class)
 public class MainPageAccordionTest {
 
@@ -44,14 +44,15 @@ public class MainPageAccordionTest {
     }
 
     @Test
-    public void testAccordion() throws InterruptedException {
+    public void testAccordion(){
         WebDriver driver = DriverFactory.getDriver();
         MainPage mainPage = new MainPage(driver);
         mainPage.closeCookie();
         mainPage.skrollAccordion();
         mainPage.clickButton(clickText);
-        mainPage.textContentChecking(answer, text);
+        String accordionText = mainPage.getAccordionText(answer);
 
+        Assert.assertEquals("Тексты не соответствуют ", text, accordionText);
     }
 
 }
